@@ -13,6 +13,7 @@
 
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
   
   <style>
@@ -277,35 +278,29 @@
                       <section>
                         <div>
                           <h3>Evolución de dosis entregadas</h3>
-                          <p id="dosisDistribuidas"></p>
+                          <canvas id="myChart"></canvas>
                         </div>
-                        <p>Es el <strong><span id = "porcentajeDosisEntregadas"></span>&nbsp;%</strong> del total sobre la población de la Comunidad de Madrid</p>
+                        <p>Total de dosis distrubuidas por fecha.</p>
                       </section>
                     </div>
-                    <div class="Embed_card__2DUIQ"><img src="img/line-chart.png" alt="Vacunas administradas en Madrid"
+                    <div class="Embed_card__2DUIQ"><img src="img/infographic.png" alt="Vacunas administradas en Madrid"
                         width="150" height="150">
                       <section>
                         <div>
                           <h3>Evolución de dosis administradas</h3>
-                          <p id="dosisAdministradas"></p>
+                          <canvas id="myChartAdministradas"></canvas>
                         </div>
-                        <p>Supone el <strong><span id = "porcentajePoblacionAdministradas"></span>&nbsp;%</strong> del total sobre la población de la Comunidad de Madrid<br>Es el
-                          <strong ><span id = "porcentajeAdministradasTotal"></span>&nbsp;%</strong>
-                          sobre el total de las vacunas entregadas hasta ahora
-                        </p>
+                        <p>Total de dosis administradas por fecha.</p>
                       </section>
                     </div>
-                    <div class="Embed_card__2DUIQ"><img src="img/vacunas-completas.png"
+                    <div class="Embed_card__2DUIQ"><img src="img/line-chart.png"
                         alt="Dosis completas subministradas" width="150" height="150">
                       <section>
                         <div>
-                          <h3>Pauta completa:</h3>
-                          <p id="pautaCompleta"></p>
+                          <h3>Evolución pauta completa</h3>
+                          <canvas id="myChartCompletada"></canvas>
                         </div>
-                        <p>Personas que han recibido las dos dosis de la vacuna.<br>Suponen un
-                          <strong><span id="porcentajeCompletas"></span>&nbsp;%</strong>
-                          de las dosis administradas.<br>Supone el <strong> <span id="porcenSobreTotalCompletas"></span>&nbsp;%</strong> del total sobre la población de la Comunidad de Madrid
-                        </p>
+                        <p>Personas que han recibido las dos dosis de la vacuna.</p>
                       </section>
                     </div><small class="Embed_description__hPGKZ"> - Datos actualizados <time title="January 22"
                         datetime="January 22">hace 1 día</time>.</small>
@@ -318,21 +313,6 @@
                 <ion-card-title>Desliza izquierda o derecha para visualizar los datos</ion-card-title>
               </ion-card-header>
               <ion-card-content>Fuente: Ministerio de Sanidad</ion-card-content>
-            </ion-card>
-          </ion-slide>
-
-          <ion-slide>
-            <ion-card>
-              <iframe id="inlineFrameExample" title="Inline Frame Example" width="450" height="350"
-                src="https://comunidadmadrid.maps.arcgis.com/apps/webappviewer/index.html?id=4bc4b611915740cc99fdc1a10954b043">
-              </iframe>
-              <ion-card-header>
-                <ion-card-subtitle>Desliza izquierda o derecha para visualizar los datos</ion-card-subtitle>
-                <ion-card-title>Mapa de restricciones</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                Zonas básicas de salud y municipios con restricciones en la actualidad.
-              </ion-card-content>
             </ion-card>
           </ion-slide>
         </ion-slides>

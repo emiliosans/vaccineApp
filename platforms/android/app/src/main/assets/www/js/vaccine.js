@@ -1,4 +1,4 @@
-
+// otra fuente datos vacunas https://raw.githubusercontent.com/datadista/datasets/master/COVID%2019/ccaa_vacunas.csv
 
 this.onload = carga;
 
@@ -235,7 +235,7 @@ function recibirGraficos () {
                 //console.log("JSON dosisDistribuidas= " + dosisDistribuidas);
 
 
-                if (dosisDistribuidas.resultCount === null) {
+                if (arrayCSV.resultCount === null) {
                     window.alert("NO HAY DATOS DE VACUNACIÓN");
                     console.log("NO HAY DATOS DE VACUNACIÓN");
                 } else {
@@ -244,6 +244,9 @@ function recibirGraficos () {
                     //muestraDatosVacunas(dosisDistribuidas);
                     //muestraDatosVacunaMadrid(dosisDistribuidas);
                    // muestraDatosVacunaEspaña(dosisDistribuidas);
+                   dibujarGrafico(arrayCSV);
+                   dibujarGraficoDosisAdministradas(arrayCSV);
+                   dibujarGraficoDosisPautaCompleta(arrayCSV);
                 }
                 break;
             case 400:
@@ -267,6 +270,203 @@ function recibirGraficos () {
         }
     }
 }
+
+
+function dibujarGrafico(datos) {
+
+    let fechas = [];
+    let longitudDatos = datos.length;
+    console.log = ("longitud datos " + longitudDatos );
+    let i = 0;
+
+    while (i < 7){
+        longitudDatos = longitudDatos - 6;
+        let formatFecha = datos[longitudDatos].split("-", 3);
+        formatFecha = formatFecha[2] + "-" + formatFecha[1] + "-" + formatFecha[0];
+        fechas.push(formatFecha);
+        i++;
+    }
+    fechas = fechas.reverse();
+    //console.log("array fechas = " + fechas);
+    i = 0;
+    let longitudDosisEntregadas = datos.length - 3;
+    let dosisEntregadas = []; 
+    dosisEntregadas.push(datos[longitudDosisEntregadas]);
+    while (i < 6){
+        longitudDosisEntregadas = longitudDosisEntregadas - 6;
+        
+        dosisEntregadas.push(datos[longitudDosisEntregadas]);
+        i++;
+    }
+    dosisEntregadas.reverse();
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Vacunas distribuidas',
+                backgroundColor: 'rgb(16, 26, 214)',
+                //borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 255, 255)',
+                data: dosisEntregadas
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+    
+        }
+    });
+}
+
+
+function dibujarGraficoDosisAdministradas(datos) {
+
+    let fechas = [];
+    let longitudDatos = datos.length;
+    console.log = ("longitud datos " + longitudDatos );
+    let i = 0;
+
+    while (i < 7){
+        longitudDatos = longitudDatos - 6;
+        let formatFecha = datos[longitudDatos].split("-", 3);
+        formatFecha = formatFecha[2] + "-" + formatFecha[1] + "-" + formatFecha[0];
+        fechas.push(formatFecha);
+        i++;
+    }
+    fechas = fechas.reverse();
+    //console.log("array fechas = " + fechas);
+    i = 0;
+    let longitudDosisEntregadas = datos.length - 2;
+    let dosisEntregadas = []; 
+    dosisEntregadas.push(datos[longitudDosisEntregadas]);
+    while (i < 6){
+        longitudDosisEntregadas = longitudDosisEntregadas - 6;
+        
+        dosisEntregadas.push(datos[longitudDosisEntregadas]);
+        i++;
+    }
+    dosisEntregadas.reverse();
+
+
+    var ctx = document.getElementById('myChartAdministradas').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Vacunas administradas',
+                backgroundColor: 'rgb(226  , 83, 3)',
+                //borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 255, 255)',
+                data: dosisEntregadas
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+    
+        }
+    });
+}
+
+function dibujarGraficoDosisPautaCompleta(datos) {
+
+    let fechas = [];
+    let longitudDatos = datos.length;
+    console.log = ("longitud datos " + longitudDatos );
+    let i = 0;
+
+    while (i < 7){
+        longitudDatos = longitudDatos - 6;
+        let formatFecha = datos[longitudDatos].split("-", 3);
+        formatFecha = formatFecha[2] + "-" + formatFecha[1] + "-" + formatFecha[0];
+        fechas.push(formatFecha);
+        i++;
+    }
+    fechas = fechas.reverse();
+    //console.log("array fechas = " + fechas);
+    i = 0;
+    let longitudDosisEntregadas = datos.length - 1;
+    let dosisEntregadas = []; 
+    dosisEntregadas.push(datos[longitudDosisEntregadas]);
+    longitudDosisEntregadas = longitudDosisEntregadas - 6;
+    while (i < 6){
+        let comprueba = datos[longitudDosisEntregadas].toLowerCase();
+        if (comprueba.includes('spain')) {
+            comprueba = comprueba.match(/[^\r\n]+/g);;
+            comprueba = comprueba[0];
+             dosisEntregadas.push(comprueba);
+
+        } else {
+             dosisEntregadas.push(datos[longitudDosisEntregadas]);
+        }
+
+        longitudDosisEntregadas = longitudDosisEntregadas - 6;
+        
+       
+        i++;
+    }
+    dosisEntregadas.reverse();
+
+
+    var ctx = document.getElementById('myChartCompletada').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Vacunación completada',
+                backgroundColor: 'rgb(83  , 225, 162)',
+                //borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 255, 255)',
+                data: dosisEntregadas
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+    
+        }
+    });
+}
+
+
+
+
 function muestraDatosVacunaMadrid(dosis) {
     let poblacionMadrid = 6779888;
 
